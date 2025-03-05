@@ -1,11 +1,10 @@
-import { StyleSheet, Image } from "react-native";
+import { StyleSheet, Image, Pressable } from "react-native";
 import Colors from "@/src/constants/Colors";
 import { Product } from "../types";
 import EditScreenInfo from "@/src/components/EditScreenInfo";
 import { Text, View } from "@/src/components/Themed";
-
-const defaultPizzaImage =
-  "https://notjustdev-dummy.s3.us-east-2.amazonawn.com/food/default.png";
+import { Link } from "expo-router";
+import {defaultPizzaImage} from "@/assets/data/defaultPizzaImage";
 
 type ProductListItemProps = {
   product: Product;
@@ -13,15 +12,17 @@ type ProductListItemProps = {
 
 const ProductListItem = ({ product }: ProductListItemProps) => {
   return (
-    <View style={styles.container}>
-      <Image
-        source={{ uri: product.image || defaultPizzaImage }}
-        resizeMode="contain"
-        style={styles.image}
-      />
-      <Text style={styles.title}>{product.name}</Text>
-      <Text style={styles.price}>${product.price}</Text>
-    </View>
+    <Link href={`/menu/${product.id}` } asChild>
+      <Pressable style={styles.container}>
+        <Image
+          source={{ uri: product.image || defaultPizzaImage }}
+          resizeMode="contain"
+          style={styles.image}
+        />
+        <Text style={styles.title}>{product.name}</Text>
+        <Text style={styles.price}>${product.price}</Text>
+      </Pressable>
+    </Link>
   );
 };
 
